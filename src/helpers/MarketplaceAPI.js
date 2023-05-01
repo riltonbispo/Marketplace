@@ -2,7 +2,7 @@
 const MarketplaceAPI = {
 
   login: async (email, password) => {
-    return {}
+    return {error: 'incompleto'}
   }
 
 }

@@ -3,9 +3,9 @@ import React from 'react';
 
 import { PageContainer, PageTitle } from "../../components/MainComponents";
 import MarketplaceAPI from "../../helpers/MarketplaceAPI";
+import { doLogin } from "../../helpers/AuthHandler";
 
 import { PageArea } from "./styled";
-import { json } from "react-router-dom";
 
 
 const SignIn = () => {
@@ -13,7 +13,7 @@ const SignIn = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [rememberLogin, setRememberLogin] = useState("");
+  const [rememberLogin, setRememberLogin] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const [error, setError] = useState('');
 
@@ -24,7 +24,8 @@ const SignIn = () => {
 
     const json = await api.login(email, password)
 
-    // json.error ?? setError(json.error) : 
+    json.error ? setError(json.error) : doLogin(json.token, rememberLogin)
+    window.location.href = '/'
   }
 
   return (

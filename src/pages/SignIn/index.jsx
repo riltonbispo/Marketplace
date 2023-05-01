@@ -1,10 +1,10 @@
 import { useState } from "react";
 import React from "react";
 
-import { PageContainer, PageTitle } from "../../components/MainComponents";
 import MarketplaceAPI from "../../helpers/MarketplaceAPI";
 import { doLogin } from "../../helpers/AuthHandler";
 
+import { PageContainer, PageTitle, ErrorMessage } from "../../components/MainComponents";
 import { PageArea } from "./styled";
 
 const SignIn = () => {
@@ -30,6 +30,11 @@ const SignIn = () => {
     <PageContainer>
       <PageTitle>Login</PageTitle>
       <PageArea>
+        {error && 
+          <ErrorMessage>{error}</ErrorMessage>
+        }
+
+
         <form onSubmit={handleSubmit}>
           <label className="area">
             <div className="area__title">Email</div>
@@ -39,6 +44,7 @@ const SignIn = () => {
                 disabled={disabled}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                required
               />
             </div>
           </label>
@@ -51,6 +57,7 @@ const SignIn = () => {
                 disabled={disabled}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                required
               />
             </div>
           </label>
@@ -62,7 +69,7 @@ const SignIn = () => {
                 type="checkbox"
                 disabled={disabled}
                 checked={rememberLogin}
-                onClick={() => setRememberLogin(!rememberLogin)}
+                onChange={() => setRememberLogin(!rememberLogin)}
               />
             </div>
           </label>
